@@ -1,0 +1,35 @@
+clear; clc; close all;
+
+img_path = './train/';
+class_num = 30;
+img_per_class = 60;
+img_num = class_num .* img_per_class;
+folder_dir = dir(img_path);
+
+%for i = 1:length(folder_dir)-2
+    
+    img_dir = dir([img_path,folder_dir(1+2).name,'/*.JPG']);
+    if isempty(img_dir)
+        img_dir = dir([img_path,folder_dir(1+2).name,'/*.BMP']);
+    end
+        
+    img = imread([img_path,folder_dir(1+2).name,'/',img_dir(1).name]);
+    gray = rgb2gray(img);
+    points = detectHarrisFeatures(gray);
+    features = extractFeatures(gray, points);
+    X = zeros(size(p),'like',p)
+    
+    for j = 2:length(img_dir)        
+        img = imread([img_path,folder_dir(1+2).name,'/',img_dir(j).name]);
+        gray = rgb2gray(img);
+        points = detectHarrisFeatures(gray);
+        features = extractFeatures(gray, points);
+        master_features = [master_features;features];
+    end
+    
+    [indexes, cluster_centers] = kmeans(master_features, 500);
+    disp(cluster_centers);
+    
+%end
+
+save('vocab.mat','cluster_centers');
