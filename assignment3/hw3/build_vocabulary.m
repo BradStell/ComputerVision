@@ -21,9 +21,9 @@ for i = 1:2
         [features,validPoints] = extractFeatures(gray, points);
         all_features = [all_features;features.Features];
     end
-    
-    [indexes, cluster_centers] = kmeans(double(all_features), 5000);
-    
 end
+
+all_features = all_features(2:end,:);
+[indexes, cluster_centers] = kmeans(double(all_features), 5000);
 
 save('vocab.mat','cluster_centers');
