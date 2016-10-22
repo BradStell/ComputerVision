@@ -29,4 +29,4 @@ for i = 1:length(folder_dir)-2
     
 end
 
-save('model.mat','feat_train','label_train');
+save('model_harris.mat','feat_train','label_train');

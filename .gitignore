@@ -1,2 +1,4 @@
 assignment3/hw3/train
 assignment3/hw3/val
+*/**/*.asv
+assignment3/hw3/all_features.mat
