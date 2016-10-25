@@ -8,12 +8,13 @@ function feat = feature_extraction(img)
     gray = rgb2gray(img);
     points = detectHarrisFeatures(gray);
     strong_points = points.selectStrongest(100);
-    [features,validPoints] = extractFeatures(gray, strong_points);
+    [features,~] = extractFeatures(gray, strong_points);
     feature_vector = features.Features;
+    feature_vector = double(feature_vector);
     
-    for i = 1:length(feature_vector)
-        for j = 1:length(cluster_centers)
-           dist = sqrt(sum((feature_vector(i) - cluster_centers(j)) .^ 2));
+    for i = 1:size(feature_vector,1)
+        for j = 1:size(cluster_centers,1)
+           dist = sqrt(sum((feature_vector(i,:) - cluster_centers(j,:)) .^ 2));
             if dist < min
                 min = dist;
                 word = j;

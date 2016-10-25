@@ -22,7 +22,7 @@ for i = 1:length(folder_dir)-2
     
     label((i-1)*img_per_class+1:i*img_per_class) = i;
     
-    for j = 1:length(img_dir)        
+    for j = 1:length(img_dir)
         img = imread([img_path,folder_dir(i+2).name,'/',img_dir(j).name]);
         feat((i-1)*img_per_class+j,:) = feature_extraction(img);
     end
@@ -33,3 +33,7 @@ predict_label = your_kNN(feat);
 
 accuracy = sum(predict_label==label) ./ img_num;
 display(accuracy);
+
+
+
+
